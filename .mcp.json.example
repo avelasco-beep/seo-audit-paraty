@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "screaming-frog": {
+      "type": "http",
+      "url": "http://localhost:11435/mcp"
+    },
+    "gscServer": {
+      "command": "/RUTA/ABSOLUTA/A/uvx",
+      "args": ["mcp-search-console"],
+      "env": {
+        "GSC_OAUTH_CLIENT_SECRETS_FILE": "/ruta/a/tu/gsc_client_secrets.json",
+        "GSC_DATA_STATE": "all"
+      }
+    }
+  }
+}

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Auditoría SEO · METT Hotels &amp; Resorts</title>
+<style>
+  :root{
+    --dark:#202B37; --ink:#2a2f38; --mute:#7a828d; --line:#e4e7ec; --soft:#f4f6f8;
+    --blue:#0093D0; --eye:#0093D0;
+    --alta:#CC2376; --media:#F28E2A; --baja:#A3BD31;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{margin:0;color:var(--ink);
+    font-family:"Helvetica Neue",-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+    font-size:10.3pt;line-height:1.55;font-weight:400}
+
+  @page{
+    size:A4; margin:27mm 15mm 18mm;
+    @top-left{content:url(data:image/png;base64,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); vertical-align:bottom; padding-bottom:2.5mm; border-bottom:1px solid #e4e7ec}
+    @top-center{content:""; border-bottom:1px solid #e4e7ec}
+    @top-right{content:"Auditoría SEO · METT Hotels & Resorts"; font-family:"Helvetica Neue",Arial,sans-serif; font-size:8.5pt; color:#7a828d; vertical-align:bottom; padding-bottom:3mm; border-bottom:1px solid #e4e7ec}
+    @bottom-left{content:"Paraty Tech · paratytech.com"; font-family:"Helvetica Neue",Arial,sans-serif; font-size:8pt; color:#9aa0a8; vertical-align:top; padding-top:2mm; border-top:1px solid #e4e7ec}
+    @bottom-center{content:"(+34) 952 230 887 · salesinfo@paratytech.com"; font-family:"Helvetica Neue",Arial,sans-serif; font-size:8pt; color:#9aa0a8; vertical-align:top; padding-top:2mm; border-top:1px solid #e4e7ec}
+    @bottom-right{content:"Página " counter(page); font-family:"Helvetica Neue",Arial,sans-serif; font-size:8pt; color:#9aa0a8; vertical-align:top; padding-top:2mm; border-top:1px solid #e4e7ec}
+  }
+  @page:first{ margin:0;
+    @top-left{content:""} @top-center{content:""} @top-right{content:""}
+    @bottom-left{content:""} @bottom-center{content:""} @bottom-right{content:""}
+  }
+
+  /* ---------- COVER ---------- */
+  .cover{position:relative;z-index:10;width:210mm;height:297mm;background:var(--dark);color:#fff;
+    padding:28mm 24mm 20mm;overflow:hidden;break-after:page}
+  .cover .logo{height:14mm;width:auto;display:block;margin-bottom:38mm}
+  .cover h1{font-weight:300;font-size:44pt;letter-spacing:-.01em;margin:0;line-height:1.05}
+  .cover .sub{font-size:15pt;color:#8fb9d6;font-weight:300;margin:8mm 0 0}
+  .cover .meta{position:absolute;left:24mm;bottom:22mm;color:#8b929c;font-size:10.5pt;line-height:1.7}
+  .cover .meta b{color:#c8ced6;font-weight:400}
+  .cover .tag{position:absolute;right:24mm;bottom:22mm;color:#6f7784;font-size:9.5pt}
+
+  /* ---------- GENERIC ---------- */
+  .eyebrow{color:var(--eye);font-size:9.5pt;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin:0 0 3mm}
+  h1.big{font-weight:300;font-size:29pt;letter-spacing:-.01em;margin:0 0 6mm;line-height:1.1}
+  h2.sec{font-weight:400;font-size:19pt;margin:9mm 0 4mm;letter-spacing:-.005em}
+  p{margin:0 0 3.4mm}
+  .intro{font-size:11.4pt;line-height:1.6;color:#3a404a}
+  code{font-family:"SF Mono",ui-monospace,Menlo,Consolas,monospace;font-size:8.7pt;color:#333;word-break:break-word}
+
+  /* ---------- KPI CARDS ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm;margin:6mm 0 2mm}
+  .kpi{background:var(--soft);border-left:4px solid var(--blue);border-radius:2px;padding:6mm 6mm 7mm}
+  .kpi.m{border-left-color:var(--alta)} .kpi.o{border-left-color:var(--media)}
+  .kpi .v{font-weight:300;font-size:34pt;line-height:1;color:var(--blue)}
+  .kpi.m .v{color:var(--alta)} .kpi.o .v{color:var(--media)}
+  .kpi .l{font-size:8.6pt;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);margin-top:5mm;line-height:1.35}
+
+  /* ---------- TABLE ---------- */
+  table{border-collapse:collapse;width:100%;font-size:9.6pt;margin:4mm 0}
+  thead th{background:var(--dark);color:#fff;font-weight:500;text-align:left;padding:3mm 4mm;font-size:9.4pt}
+  tbody td{padding:3mm 4mm;border-bottom:1px solid var(--line);vertical-align:middle}
+  tbody tr:nth-child(even){background:#f8f9fb}
+  td.n{color:var(--mute);width:9mm}
+  .amb{color:#4a5058}
+  table.plan td.fase{width:14mm;color:var(--mute);text-align:center}
+
+  /* priority pill */
+  .pill{display:inline-block;min-width:15mm;text-align:center;color:#fff;font-size:8.4pt;font-weight:600;
+    padding:1.4mm 3mm;border-radius:3px;letter-spacing:.02em}
+  .pill.alta{background:var(--alta)} .pill.media{background:var(--media)} .pill.baja{background:var(--baja)}
+
+  /* ---------- FINDINGS ---------- */
+  h2.detail{font-weight:300;font-size:26pt;margin:0 0 7mm;letter-spacing:-.01em}
+  .find{break-inside:avoid;margin:0 0 8mm}
+  .fhead{display:flex;align-items:center;gap:4mm;border-bottom:2px solid var(--line);padding-bottom:2.5mm;margin-bottom:3mm}
+  .fnum{background:var(--dark);color:#fff;font-weight:500;font-size:11pt;
+    width:9mm;height:9mm;min-width:9mm;display:flex;align-items:center;justify-content:center;border-radius:2px}
+  .ftitle{font-size:13.5pt;font-weight:500;flex:1;line-height:1.2}
+  .find .body{color:#3a404a}
+  .find .body p{margin:0 0 2.6mm}
+  .rec{background:var(--soft);border-left:3px solid var(--media);border-radius:2px;padding:4mm 5mm;margin-top:3mm}
+  .rec.alta{border-left-color:var(--alta)} .rec.media{border-left-color:var(--media)} .rec.baja{border-left-color:var(--baja)}
+  .rec .lbl{font-size:8pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.5mm;color:var(--media)}
+  .rec.alta .lbl{color:var(--alta)} .rec.baja .lbl{color:var(--baja)}
+  .rec p{margin:0;color:#3a404a}
+
+  /* ---------- OK LIST ---------- */
+  ul.ok{list-style:none;margin:4mm 0;padding:0}
+  ul.ok li{position:relative;padding-left:7mm;margin:0 0 3mm;color:#3a404a;break-inside:avoid}
+  ul.ok li::before{content:"✓";position:absolute;left:0;color:var(--baja);font-weight:700}
+  ul.ok b{color:var(--ink);font-weight:600}
+
+  .tagline{color:var(--blue);font-size:14pt;font-weight:300;margin:8mm 0 0}
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<section class="cover">
+  <img class="logo" src="data:image/png;base64,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" alt="Paraty Tech">
+  <h1>Auditoría SEO</h1>
+  <p class="sub">METT Hotels &amp; Resorts · 7 destinos</p>
+  <div class="meta">
+    Cliente: <b>METT Hotels &amp; Resorts</b><br>
+    Marbella · Bodrum · Barcelona · Milán · Singapur · Alicante · Sitges<br>
+    Fecha: <b>Julio 2026</b>
+  </div>
+  <div class="tag">In technology we trust.</div>
+</section>
+
+<!-- ===== PAGE 2: intro + resumen + KPI + tabla ===== -->
+<section>
+  <p class="eyebrow">Análisis técnico on-site · GEO</p>
+  <h1 class="big">Auditoría SEO — METT Hotels &amp; Resorts</h1>
+  <p class="intro">Revisión técnica, semántica y de visibilidad de <code>www.metthotelsandresorts.com</code>, un WordPress multisite con siete propiedades tras Cloudflare. Dos capas de análisis: un examen directo de la home en cinco idiomas, fichas, robots.txt y accesos de crawlers; y el crawl completo con Screaming Frog (~5.223 URLs, ~1.440 páginas indexables), que aporta las cifras a escala de sitio.</p>
+
+  <h2 class="sec">Resumen ejecutivo</h2>
+  <p>METT parte de una <b>base de contenido sólida</b> —fichas bien escritas, con jerarquía y material de sobra— pero está lastrada por la arquitectura de indexación y la capa técnica. Tres problemas impiden que ese buen contenido rinda: el <b>sitemap del robots.txt apunta a un dominio muerto</b>, <b>casi ningún hotel está en el sitemap</b> y <b>ningún buscador con IA puede leer la web</b> (todos reciben 403). A ello se suma una fuga de conversión —el botón de reservar arrastra una fecha de llegada del pasado— y un problema de escala de plantilla: el <b>97 % de las páginas comparten título y meta description</b> y el <b>83 % no tiene H1</b>, en buena parte porque las cinco versiones de idioma llevan el mismo título en inglés.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="v">~1.440</div><div class="l">Páginas indexables analizadas</div></div>
+    <div class="kpi m"><div class="v">4/4</div><div class="l">Crawlers de IA bloqueados (403)</div></div>
+    <div class="kpi o"><div class="v">25</div><div class="l">Hallazgos detectados</div></div>
+  </div>
+
+  <h2 class="sec">Cuadro de hallazgos y prioridad</h2>
+  <table>
+    <thead><tr><th>#</th><th>Hallazgo</th><th>Prioridad</th><th>Ámbito</th></tr></thead>
+    <tbody>
+      <tr><td class="n">01</td><td>El sitemap del robots.txt apunta a un dominio muerto</td><td><span class="pill alta">Alta</span></td><td class="amb">Indexación</td></tr>
+      <tr><td class="n">02</td><td>Casi ningún hotel está en el sitemap</td><td><span class="pill alta">Alta</span></td><td class="amb">Indexación</td></tr>
+      <tr><td class="n">03</td><td>Páginas de prueba indexables: /test123/ y /new/</td><td><span class="pill media">Media</span></td><td class="amb">Indexación</td></tr>
+      <tr><td class="n">04</td><td>87 enlaces internos a 4xx y 115 a redirecciones</td><td><span class="pill media">Media</span></td><td class="amb">Indexación</td></tr>
+      <tr><td class="n">05</td><td>53 páginas sin canonical y 5 canonicalizadas</td><td><span class="pill baja">Baja</span></td><td class="amb">Indexación</td></tr>
+      <tr><td class="n">06</td><td>Rebranding con redirección 302 en vez de 301</td><td><span class="pill baja">Baja</span></td><td class="amb">Indexación</td></tr>
+      <tr><td class="n">07</td><td>Todos los crawlers de IA reciben un 403</td><td><span class="pill alta">Alta</span></td><td class="amb">GEO</td></tr>
+      <tr><td class="n">08</td><td>Ningún dato estructurado de tipo Hotel</td><td><span class="pill media">Media</span></td><td class="amb">GEO</td></tr>
+      <tr><td class="n">09</td><td>Las páginas de país son archivos de WordPress sin editar</td><td><span class="pill media">Media</span></td><td class="amb">Contenido</td></tr>
+      <tr><td class="n">10</td><td>El botón de reservar lleva una fecha de llegada del pasado</td><td><span class="pill alta">Alta</span></td><td class="amb">Conversión</td></tr>
+      <tr><td class="n">11</td><td>El motor de reservas vive en un tercer dominio</td><td><span class="pill baja">Baja</span></td><td class="amb">Conversión</td></tr>
+      <tr><td class="n">12</td><td>Títulos y meta se quedan en inglés en todos los idiomas</td><td><span class="pill media">Media</span></td><td class="amb">Internacional</td></tr>
+      <tr><td class="n">13</td><td>Falta x-default en las 1.440 páginas</td><td><span class="pill media">Media</span></td><td class="amb">Internacional</td></tr>
+      <tr><td class="n">14</td><td>Versiones de idioma fuera del sitemap (#TRPLINKPROCESSED)</td><td><span class="pill baja">Baja</span></td><td class="amb">Internacional</td></tr>
+      <tr><td class="n">15</td><td>1.202 páginas sin H1 — el 83 % del sitio</td><td><span class="pill alta">Alta</span></td><td class="amb">Contenido</td></tr>
+      <tr><td class="n">16</td><td>97 % de títulos y meta descriptions duplicados</td><td><span class="pill alta">Alta</span></td><td class="amb">Contenido</td></tr>
+      <tr><td class="n">17</td><td>Longitud de títulos y descripciones fuera de rango</td><td><span class="pill media">Media</span></td><td class="amb">Contenido</td></tr>
+      <tr><td class="n">18</td><td>320 páginas con poco contenido y 490 difíciles de leer</td><td><span class="pill media">Media</span></td><td class="amb">Contenido</td></tr>
+      <tr><td class="n">19</td><td>798 imágenes sin texto ALT — el 74 %</td><td><span class="pill media">Media</span></td><td class="amb">Contenido</td></tr>
+      <tr><td class="n">20</td><td>LCP fuera de rango en móvil, medido con PageSpeed</td><td><span class="pill alta">Alta</span></td><td class="amb">Rendimiento</td></tr>
+      <tr><td class="n">21</td><td>Ninguna cabecera de seguridad en ~5.000 URLs</td><td><span class="pill media">Media</span></td><td class="amb">Técnico</td></tr>
+      <tr><td class="n">22</td><td>570 imágenes &gt;100 KB y 266 sin dimensiones</td><td><span class="pill media">Media</span></td><td class="amb">Rendimiento</td></tr>
+      <tr><td class="n">23</td><td>El 100 % de las páginas con enlaces sin anchor text</td><td><span class="pill media">Media</span></td><td class="amb">Enlaces</td></tr>
+      <tr><td class="n">24</td><td>Enlaces internos que mezclan www y sin-www</td><td><span class="pill baja">Baja</span></td><td class="amb">Técnico</td></tr>
+      <tr><td class="n">25</td><td>Autoridad y backlinks sin medir (Supermetrics caducado)</td><td><span class="pill media">Media</span></td><td class="amb">Off-page</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== DETALLE ===== -->
+<section style="break-before:page">
+  <h2 class="detail">Hallazgos en detalle</h2>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">01</span><span class="ftitle">El sitemap del robots.txt apunta a un dominio muerto</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>El <code>robots.txt</code> declara <code>Sitemap: https://mettsocialliving.com/sitemap.xml</code>, el dominio de la marca antigua «Mett Social Living», que hoy solo hace un 302 hacia el dominio nuevo. El sitemap real vive en <code>www.metthotelsandresorts.com/sitemap.xml</code> y no está referenciado en ningún sitio. Google llega al sitemap por Search Console y robots.txt; la vía de robots.txt está rota y manda al rastreador a un dominio que ya no es el vuestro.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>Corregir la línea del robots.txt para que apunte al sitemap del dominio actual. Un cambio de una línea con impacto directo en el descubrimiento de URLs.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">02</span><span class="ftitle">Casi ningún hotel está en el sitemap</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>La home enlaza siete propiedades (Marbella, Bodrum, Barcelona, Milan/Torre Velasca, Singapore, Alicante Cala Natura y Sitges/Casa Mett), todas con página viva (200), pero apenas aparecen en los sitemaps: <b>Alicante Cala Natura no está en ninguno</b>. La causa es la arquitectura multisite: cada hotel es una instalación WordPress con su propio juego de sitemaps, sin un índice global que los una, así que cada hotel queda como una isla que Google solo descubre por enlaces internos.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>Crear un índice de sitemaps global que agregue el sitio raíz y el de cada subsitio, con los siete hoteles dentro, y darlo de alta en Search Console y Bing. Es la intervención de mayor impacto de toda la auditoría.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">03</span><span class="ftitle">Páginas de prueba indexables: /test123/ y /new/</span><span class="pill media">Media</span></div>
+    <div class="body"><p>Ambas devuelven 200, son indexables (sin <code>noindex</code>) y <code>/test123/</code> está además dentro del sitemap. Restos de desarrollo que no deberían ser visibles para Google.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Despublicarlas o devolver 410 y sacarlas del sitemap. Revisar de paso si hay más páginas huérfanas de pruebas.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">04</span><span class="ftitle">87 enlaces internos a 4xx y 115 a redirecciones</span><span class="pill media">Media</span></div>
+    <div class="body"><p>El crawl encuentra 87 URLs internas que responden 4xx y 115 enlaces internos a redirecciones 3xx. <b>Matiz importante:</b> parte de esos 87 pueden ser 403 del propio WAF de Cloudflare, no 404 reales; el propio Screaming Frog lo avisa y recomienda rastrear con user-agent de Chrome.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Exportar los 4xx, distinguir 404 reales de 403 del WAF, corregir o redirigir los rotos, y reapuntar los enlaces internos que pasan por 3xx a su URL final.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">05</span><span class="ftitle">53 páginas sin canonical y 5 canonicalizadas a otra URL</span><span class="pill baja">Baja</span></div>
+    <div class="body"><p>El grueso del sitio tiene canonical autorreferencial, pero 53 páginas no declaran ninguna y 5 apuntan a otra URL. Entre estas, los restaurantes Anjel y Aura Beach apuntan a <code>/dine-play/</code> y así se excluyen del índice. Si son marcas buscables, deberían tener canonical propia.</p></div>
+    <div class="rec baja"><div class="lbl">Recomendación</div><p>Añadir canonical autorreferencial a las 53 páginas que la omiten y revisar caso por caso las 5 canonicalizadas.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">06</span><span class="ftitle">Rebranding con redirección 302 en vez de 301</span><span class="pill baja">Baja</span></div>
+    <div class="body"><p>El dominio antiguo redirige con un 302 (temporal), no con un 301. Para un cambio de marca permanente debe ser 301, para que se transfiera la autoridad acumulada.</p></div>
+    <div class="rec baja"><div class="lbl">Recomendación</div><p>Cambiar la redirección del dominio antiguo a 301 permanente e inventariar las citaciones que aún usan el nombre y dominio viejos.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">07</span><span class="ftitle">Todos los crawlers de IA reciben un 403</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>GPTBot, OAI-SearchBot, PerplexityBot y ClaudeBot reciben un 403; Google-Extended, un 520. Es casi con seguridad la protección anti-bots de Cloudflare filtrando por user-agent. La buena noticia: <b>Googlebot y Bingbot sí entran (200)</b>, así que el SEO clásico no está en riesgo. Pero para GEO el efecto es total: ninguno de estos sistemas puede leer una página, así que METT no puede ser citado como fuente. Para una marca de lujo cuyo cliente investiga antes de reservar, es un canal entero cerrado.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>En Cloudflare, permitir explícitamente los user-agents de los crawlers de IA que interesen (mínimo GPTBot, OAI-SearchBot y PerplexityBot) mediante una regla de WAF. Es una decisión de negocio, pero ahora el bloqueo parece un efecto colateral, no una elección.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">08</span><span class="ftitle">Ningún dato estructurado de tipo Hotel</span><span class="pill media">Media</span></div>
+    <div class="body"><p>En las 78 páginas analizadas el schema se repite: <code>Organization</code>, <code>WebSite</code>, <code>WebPage</code> y <code>BreadcrumbList</code>. Cero <code>Hotel</code>/<code>LodgingBusiness</code>, cero <code>Offer</code>, cero <code>Restaurant</code>. Para una marca hotelera es la pieza de datos estructurados que más ayuda a Google y a los modelos generativos a entender cada página.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Añadir <code>Hotel</code> en cada ficha (dirección, <code>geo</code>, rango de precios, <code>starRating</code>, <code>amenityFeature</code>, <code>sameAs</code>) y <code>Restaurant</code> en las páginas de Dine &amp; Play.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">09</span><span class="ftitle">Las páginas de país son archivos de WordPress sin editar</span><span class="pill media">Media</span></div>
+    <div class="body"><p><code>/mettcountry/spain/</code> tiene como H1 «Country: Spain» y como H2 «Recent Posts», «Archives», «Categories»: la plantilla de archivo por defecto de WordPress, no una landing. Lo mismo en Italia, Turquía y Singapur, ninguna con meta description. Son URLs con un potencial enorme desperdiciado: «hoteles de lujo en Turquía», «hotel boutique Marbella».</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Convertirlas en landings reales con texto propio, enlaces a los hoteles del país, FAQ marcada y densidad factual. O, si no se van a trabajar, sacarlas del índice.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">10</span><span class="ftitle">El botón de reservar lleva una fecha de llegada del pasado</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>El enlace al motor desde la home lleva <code>&amp;arrive=2025-03-12</code> fija en el código. Un usuario que pulse «Reserve» aterriza en el motor con una fecha de llegada ya vencida, lo que en el mejor caso obliga a corregir y en el peor muestra error o cero disponibilidad.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>Quitar el parámetro <code>arrive</code> fijo del enlace y dejar que el motor use la fecha por defecto, o generarla dinámicamente. Es una fuga de conversión directa, prioridad máxima.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">11</span><span class="ftitle">El motor de reservas vive en un tercer dominio de marca</span><span class="pill baja">Baja</span></div>
+    <div class="body"><p>Las reservas se procesan en <code>reservations.sunsethotelsandresorts.com</code>. Conviene verificar que la continuidad de medición web-motor está bien montada —que el Page View se dispara en ambos contextos— y que ese salto de dominio no rompe el seguimiento de conversiones ni la atribución.</p></div>
+    <div class="rec baja"><div class="lbl">Recomendación</div><p>Verificar el tag de medición en ambos contextos y la atribución del salto de dominio hacia el motor.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">12</span><span class="ftitle">Títulos y meta descriptions se quedan en inglés en todos los idiomas</span><span class="pill media">Media</span></div>
+    <div class="body"><p>La versión <code>/es/</code> traduce el cuerpo pero el <code>&lt;title&gt;</code> sigue siendo «Luxury 5 Star Hotel…» y la meta description sigue en inglés: el desajuste típico entre TranslatePress (contenido) y All in One SEO (metadatos). <b>Y aquí está la causa del 97 % de títulos y descripciones duplicados:</b> cada página se replica idéntica en cinco idiomas.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Traducir title y meta description por idioma en la integración de AIOSEO con TranslatePress. Es lo que desactiva de golpe el mayor problema de contenido del sitio.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">13</span><span class="ftitle">Falta x-default en las 1.440 páginas</span><span class="pill media">Media</span></div>
+    <div class="body"><p>El bloque hreflang cubre los cinco idiomas con retorno recíproco —bien— pero ninguna página declara <code>x-default</code> (el crawl lo marca en el 100 % de las URLs con hreflang). Además, 2 URLs hreflang no responden 200, 5 tienen retorno no canónico y 5 no usan la versión canónica en su propia anotación.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Añadir <code>hreflang="x-default"</code> apuntando a la versión inglesa y corregir las 12 anotaciones con URLs no-200 o no canónicas.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">14</span><span class="ftitle">Versiones de idioma fuera del sitemap y con #TRPLINKPROCESSED</span><span class="pill baja">Baja</span></div>
+    <div class="body"><p><code>/es/</code>, <code>/tr/</code>, <code>/de/</code> y <code>/ru/</code> son válidas pero ninguna está en el sitemap: solo se listan las inglesas. Varios enlaces internos arrastran el sufijo <code>#TRPLINKPROCESSED</code> del plugin de traducción. Y una inconsistencia: el raíz ofrece EN/ES/TR/DE/RU y el subsitio de Marbella EN/ES/DE/RU/FR —sin turco y con francés—.</p></div>
+    <div class="rec baja"><div class="lbl">Recomendación</div><p>Incluir las versiones de idioma en el sitemap, eliminar el sufijo <code>#TRPLINKPROCESSED</code> del HTML y unificar los juegos de idioma entre raíz y subsitios.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">15</span><span class="ftitle">1.202 páginas sin H1 — el 83 % del sitio</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>1.202 de ~1.440 páginas no tienen ningún H1: es sistémico de plantilla. La home, «About Us», «Dine &amp; Play», las ofertas y casi todas las notas de prensa arrancan directamente en H2. En el extremo opuesto, 36 páginas tienen varios H1 —Marbella entre ellas—. La misma raíz: la plantilla no controla el H1.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>Corregir la plantilla para que emita un H1 único por página con la keyword principal. Al ser plantilla, un solo cambio arregla más de mil páginas de golpe.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">16</span><span class="ftitle">97 % de títulos y meta descriptions duplicados</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>El dato más grave del crawl: 1.397 páginas comparten título (97 %) y 1.399 comparten meta description (97 %); a esto se suman 1.012 con H2 duplicado (70 %). Cuando casi todo el sitio se presenta igual, ni los usuarios ni Google distinguen una página de otra. La causa principal ya está diagnosticada: los metadatos no se traducen.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>Primero, traducir metadatos por idioma (resuelve el grueso). Después, diferenciar los títulos que sigan repetidos dentro de un mismo idioma —plantillas de oferta y prensa—.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">17</span><span class="ftitle">Longitud de títulos y descripciones fuera de rango</span><span class="pill media">Media</span></div>
+    <div class="body"><p>Más allá del duplicado: 386 títulos superan el límite de píxeles de Google (370 pasan de 60 caracteres) y 185 se quedan por debajo de 30. En meta descriptions, 878 superan los 155 caracteres —la home llega a 374— y 160 se quedan cortas. En ambos casos Google acaba reescribiendo el snippet.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Ajustar títulos al rango de píxeles útil y descripciones a 150-160 caracteres, priorizando home, fichas de hotel y páginas de país.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">18</span><span class="ftitle">320 páginas con poco contenido y 490 difíciles de leer</span><span class="pill media">Media</span></div>
+    <div class="body"><p>El crawl marca 320 páginas (21 %) por debajo de 200 palabras —contenido delgado— y otras 490 con lectura difícil o muy difícil según Flesch. Para una marca de lujo el tono elaborado es esperable, pero el contenido delgado en volumen sí penaliza y limita el posicionamiento por genéricas.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Priorizar el enriquecimiento de las páginas delgadas que sí importan —fichas, destinos, ofertas— y dejar como están las secundarias por naturaleza.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">19</span><span class="ftitle">798 imágenes sin texto ALT — el 74 %</span><span class="pill media">Media</span></div>
+    <div class="body"><p>798 de ~1.076 imágenes tienen el atributo <code>alt</code> pero vacío. Se pierde accesibilidad y contexto para Google Imágenes, especialmente costoso en una marca tan visual.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Redactar alt descriptivo en las imágenes de contenido y dejar <code>alt=""</code> solo en las puramente decorativas.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">20</span><span class="ftitle">LCP fuera de rango en móvil, medido con PageSpeed</span><span class="pill alta">Alta</span></div>
+    <div class="body"><p>El LCP es el problema de rendimiento, y es sistémico. En laboratorio móvil la home tarda 10,1 s en pintar el elemento principal y Marbella 18,5 s (umbral «bueno» 2,5 s), y los datos de campo de usuarios reales (CrUX) también suspenden el LCP móvil (home 4,9 s). <b>CLS perfecto (0) e INP correcto:</b> el problema no es la estabilidad ni la interactividad, es cuánto tarda en aparecer la imagen principal —heros de ~1 MB sin comprimir—. La nota SEO de Lighthouse es 100.</p></div>
+    <div class="rec alta"><div class="lbl">Recomendación</div><p>Comprimir el hero a WebP, darle <code>fetchpriority="high"</code> y servirlo al tamaño del contenedor. Con eso el LCP móvil puede bajar de la franja roja a la verde sin tocar nada más.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">21</span><span class="ftitle">Ninguna cabecera de seguridad, confirmado en ~5.000 URLs</span><span class="pill media">Media</span></div>
+    <div class="body"><p>Alrededor del 96 % de las URLs carecen de <code>Content-Security-Policy</code>, <code>X-Content-Type-Options</code>, <code>X-Frame-Options</code>, <code>HSTS</code> y <code>Referrer-Policy</code> segura. Estar tras Cloudflare ayuda, pero estas cabeceras hay que declararlas igualmente; varias se activan con un clic en el panel.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Activar HSTS y <code>nosniff</code> desde Cloudflare, fijar <code>X-Frame-Options: SAMEORIGIN</code> y <code>Referrer-Policy: strict-origin-when-cross-origin</code>, y desplegar una CSP en modo <i>report-only</i> antes de forzarla.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">22</span><span class="ftitle">570 imágenes por encima de 100 KB y 266 sin dimensiones</span><span class="pill media">Media</span></div>
+    <div class="body"><p>570 imágenes (53 %) superan los 100 KB y 266 (25 %) no llevan <code>width</code>/<code>height</code>. En la home el hero pesa 967 KB y no hay ninguna imagen en WebP o AVIF, aunque sí se usa <code>srcset</code> en parte. <b>Estas imágenes son la causa directa del LCP suspenso.</b> Detalle de higiene: una imagen se llama <code>…extendedtest1-scaled.jpg</code>, nombre de prueba en producción.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Servir WebP y comprimir por encima de 100 KB, y añadir <code>width</code>/<code>height</code> en la plantilla de imagen. Con Cloudflare (Polish / Image Resizing) se puede hacer sin tocar el tema.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">23</span><span class="ftitle">El 100 % de las páginas tienen enlaces internos sin texto de anclaje</span><span class="pill media">Media</span></div>
+    <div class="body"><p>El crawl marca este problema en las 1.440 páginas: todas tienen al menos un enlace interno sin texto de anclaje ni <code>alt</code> en la imagen enlazada. Suele venir de logos e iconos enlazados sin texto alternativo. El anchor text es una de las señales con las que Google entiende la página de destino.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Dar <code>alt</code> a las imágenes enlazadas (logo, iconos) y <code>aria-label</code> a los enlaces que solo llevan icono. Al ser elementos de plantilla, se corrige de una vez para todo el sitio.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">24</span><span class="ftitle">Enlaces internos que mezclan www y sin-www</span><span class="pill baja">Baja</span></div>
+    <div class="body"><p>La home enlaza a los hoteles unas veces sin www —que pasa por un 301 hacia la versión www— y otras con www; son los 115 enlaces internos a 3xx. La ruta <code>http://</code> sin www encadena además dos saltos hasta <code>https://www</code>.</p></div>
+    <div class="rec baja"><div class="lbl">Recomendación</div><p>Unificar todos los enlaces internos a <code>https://www</code> en un solo salto.</p></div>
+  </div>
+
+  <div class="find">
+    <div class="fhead"><span class="fnum">25</span><span class="ftitle">Autoridad y backlinks sin medir (Supermetrics caducado)</span><span class="pill media">Media</span></div>
+    <div class="body"><p>Cualitativamente la marca tiene buena distribución y prensa (Booking, Expedia, TripAdvisor, Kuoni, Travel Weekly, publicaciones de lujo). Pero los datos duros de off-page —Domain Rating, dominios de referencia, backlinks tóxicos, reparto marca vs genéricas— no se han podido medir: la vía es Supermetrics y el trial del equipo caducó el 2 de abril de 2026. Tampoco hay acceso directo a Search Console.</p></div>
+    <div class="rec media"><div class="lbl">Recomendación</div><p>Reactivar la suscripción de Supermetrics o conseguir acceso a Search Console del hotel (los backlinks reales y el tráfico orgánico salen de ahí, gratis). Es la única pieza del método que hoy queda sin datos.</p></div>
+  </div>
+</section>
+
+<!-- ===== POSITIVES ===== -->
+<section style="break-before:page">
+  <h2 class="detail">Lo que ya está bien</h2>
+  <p class="body" style="color:#3a404a;margin-bottom:5mm">La base de contenido es buena; el problema está en la capa técnica que la envuelve. No hay que tocar:</p>
+  <ul class="ok">
+    <li><b>Googlebot y Bingbot entran sin problema</b> (200). El SEO clásico no está en riesgo pese al bloqueo de bots de IA.</li>
+    <li><b>HTTPS forzado y dominio canónico claro.</b> Todo consolida en <code>https://www</code> con 301.</li>
+    <li><b>Canonical presente en la gran mayoría de páginas.</b> Solo 53 de ~1.440 la omiten.</li>
+    <li><b>Fichas de hotel con contenido real y bien titulado.</b> Marbella tiene 19 H2 y un title ejemplar en 69 caracteres.</li>
+    <li><b>hreflang con retorno recíproco</b> en los cinco idiomas (falta el <code>x-default</code> y 12 anotaciones puntuales).</li>
+    <li><b>Open Graph y Twitter Cards presentes</b>, con <code>og:image</code>, en home y fichas.</li>
+    <li><b>srcset ya en uso</b> en parte de las imágenes; <b>TTFB correcto</b> y compresión Brotli vía Cloudflare.</li>
+    <li><b>NAP coherente</b> en Marbella y Bodrum, verificado con datos públicos.</li>
+    <li><b>Sin redirección automática por idioma</b>, que es lo correcto para el rastreo.</li>
+  </ul>
+</section>
+
+<!-- ===== ACTION PLAN ===== -->
+<section style="break-before:page">
+  <p class="eyebrow">Próximos pasos</p>
+  <h1 class="big">Plan de acción priorizado</h1>
+  <p>Orden de ejecución recomendado por impacto SEO y esfuerzo. La prioridad es desbloquear el descubrimiento (sitemaps), la conversión y la visibilidad en buscadores clásicos y generativos, antes de entrar en la limpieza de plantilla a escala.</p>
+
+  <table class="plan">
+    <thead><tr><th>Fase</th><th>Acción</th><th>Prioridad</th></tr></thead>
+    <tbody>
+      <tr><td class="fase">1</td><td>Quitar la fecha de llegada fija del enlace de reserva</td><td><span class="pill alta">Alta</span></td></tr>
+      <tr><td class="fase">1</td><td>Corregir el sitemap del robots.txt al dominio actual</td><td><span class="pill alta">Alta</span></td></tr>
+      <tr><td class="fase">1</td><td>Índice de sitemaps global que una raíz y subsitios de hotel</td><td><span class="pill alta">Alta</span></td></tr>
+      <tr><td class="fase">1</td><td>Permitir crawlers de IA en el WAF de Cloudflare</td><td><span class="pill alta">Alta</span></td></tr>
+      <tr><td class="fase">1</td><td>Comprimir el hero a WebP con fetchpriority (baja el LCP móvil)</td><td><span class="pill alta">Alta</span></td></tr>
+      <tr><td class="fase">1</td><td>H1 único por página en la plantilla</td><td><span class="pill alta">Alta</span></td></tr>
+      <tr><td class="fase">2</td><td>Traducir title y meta description por idioma</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Añadir schema Hotel a cada ficha y Restaurant a Dine &amp; Play</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Añadir x-default al hreflang y corregir las 12 anotaciones</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Ajustar longitud de títulos y meta descriptions</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Revisar los 87 enlaces a 4xx (404 reales vs 403 del WAF)</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Cabeceras de seguridad desde Cloudflare</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Comprimir imágenes &gt;100 KB a WebP y añadir width/height</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Redactar alt en las 798 imágenes y dar alt/aria-label a iconos</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Despublicar /test123/ y /new/ y sacarlas del sitemap</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Convertir las páginas de país en landings de destino reales</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">2</td><td>Reactivar Supermetrics o acceso a Search Console (off-page)</td><td><span class="pill media">Media</span></td></tr>
+      <tr><td class="fase">3</td><td>Añadir canonical a las 53 páginas que la omiten</td><td><span class="pill baja">Baja</span></td></tr>
+      <tr><td class="fase">3</td><td>301 permanente en el dominio de la marca antigua</td><td><span class="pill baja">Baja</span></td></tr>
+      <tr><td class="fase">3</td><td>Unificar enlaces internos a https://www en un salto</td><td><span class="pill baja">Baja</span></td></tr>
+    </tbody>
+  </table>
+
+  <p class="tagline">Más de 14 años impulsando la venta directa hotelera.</p>
+</section>
+
+</body>
+</html>

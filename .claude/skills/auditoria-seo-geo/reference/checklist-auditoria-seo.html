@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist de auditoría SEO - Hoteles con motor de reservas</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --line:#252a34; --txt:#e7e9ee; --muted:#9aa3b2;
+    --accent:#4c8dff; --ok:#37c98a; --warn:#f5b638; --crit:#f56a6a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;font-size:15px}
+  .wrap{max-width:980px;margin:0 auto;padding:32px 20px 80px}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  h1{font-size:24px;margin:0 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{background:#1b2330;border:1px solid var(--line);color:var(--muted);
+    padding:4px 10px;border-radius:999px;font-size:12px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:18px 0 4px;font-size:12.5px;color:var(--muted)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .d-crit{background:var(--crit)} .d-high{background:var(--warn)} .d-low{background:var(--ok)}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin-top:18px}
+  .sec-h{display:flex;align-items:center;gap:10px;margin:0 0 4px}
+  .sec-h h2{font-size:17px;margin:0}
+  .sec-num{background:var(--accent);color:#fff;font-size:12px;font-weight:700;
+    width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .sec-desc{color:var(--muted);font-size:13px;margin:0 0 12px}
+  ul.checks{list-style:none;margin:0;padding:0}
+  ul.checks li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+  ul.checks li:first-child{border-top:none}
+  .box{flex:0 0 auto;width:16px;height:16px;border:1.5px solid #3a4a5c;border-radius:4px;margin-top:3px}
+  .txt b{font-weight:600}
+  .txt span{color:var(--muted);font-size:13px}
+  .tag{font-size:10.5px;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+  .t-crit{background:rgba(245,106,106,.15);color:#f89}
+  .t-high{background:rgba(245,182,56,.15);color:#f5c96a}
+  .t-low{background:rgba(55,201,138,.15);color:#5ad6a0}
+  .t-geo{background:rgba(76,141,255,.15);color:#8bb4ff}
+  .t-pat{background:rgba(180,120,255,.15);color:#c6a0ff}
+  footer{color:var(--muted);font-size:12px;margin-top:28px;text-align:center}
+  @media print{
+    body{background:#fff;color:#111}
+    section{background:#fff;border-color:#ddd;break-inside:avoid}
+    .chip,.sec-num{color:#fff}
+    .box{border-color:#888}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Checklist de auditoría SEO</h1>
+  <p class="sub">Hoteles con web corporativa y motor de reservas. Plantilla reutilizable por URL.</p>
+  <div class="meta">
+    <span class="chip">URL auditada: __________________________</span>
+    <span class="chip">Fecha: __________</span>
+    <span class="chip">Auditor: __________</span>
+  </div>
+  <div class="legend">
+    <span><span class="dot d-crit"></span>Crítico</span>
+    <span><span class="dot d-high"></span>Importante</span>
+    <span><span class="dot d-low"></span>Mejora</span>
+    <span><span class="tag t-pat" style="margin:0">patrón frecuente</span> se repite en varios hoteles</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-h"><div class="sec-num">0</div><h2>Accesos y punto de partida</h2></div>
+  <p class="sec-desc">Antes de auditar: confirmar qué tenemos y a qué damos acceso.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>¿Tiene web y motor?</b><br><span>Confirmar que existe web corporativa y motor de reservas asociado.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Acceso a Perfil de Empresa de Google (GMB)</b><br><span>Confirmar si tenemos acceso al panel.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Acceso a Microsoft Clarity</b><br><span>Para heatmaps y grabaciones de sesión.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Acceso a Google Search Console</b><br><span>Para impresiones, queries, indexación y sitemaps.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Acceso a Bing Webmaster Tools</b><br><span>Cobertura, sitemap y rendimiento en Bing.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Carpeta de optimizaciones</b><br><span>Si algo no está optimizado, comprobar si tenemos la carpeta de optimizaciones del hotel.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">1</div><h2>Indexación y rastreo</h2></div>
+  <p class="sec-desc">Que Google rastree e indexe la versión correcta, sin duplicados, bloqueos ni desperdicio de crawl budget.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Canonical</b> <span class="tag t-crit">crítico</span><br><span>Existe, apunta a la versión correcta y sin cadenas de canonicals.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Meta robots / X-Robots-Tag</b> <span class="tag t-crit">crítico</span><br><span>Sin noindex ni nofollow accidentales. Las directivas deben ir dentro del &lt;head&gt;.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sin noindex y canonical a la vez</b><br><span>Señales contradictorias; una URL noindex no debe llevar canonical.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>robots.txt</b><br><span>No bloquea recursos de render (CSS/JS) ni secciones que deban indexar.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sitemap.xml depurado</b><br><span>Sin 3xx/4xx ni canonicalizadas, sin changefreq/priority; separar web y blog y añadir sitemap de imágenes.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Código de respuesta y redirecciones</b> <span class="tag t-high">importante</span><br><span>200 correcto; sin cadenas ni bucles 301/302/307.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>404 real y página 404 útil</b> <span class="tag t-high">importante</span><br><span>Las URLs inexistentes devuelven 404, no 302 a la home; página 404 con menú, buscador y enlazado.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sin soft 404</b><br><span>Nada de 200 OK mostrando "Error 404" e indexable.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>URLs con mayúsculas: 301 a minúsculas</b> <span class="tag t-pat">patrón frecuente</span><br><span>No basta la canonical; redirigir para no arrastrar duplicidad.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>URLs con acentos o no ASCII</b> <span class="tag t-pat">patrón frecuente</span><br><span>Suelen devolver 404; implementar 301 automática a la versión normalizada.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Filtros de búsqueda/reservas: noindex,follow</b><br><span>La canonical no es directiva; sin noindex pueden acabar indexando.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Buscadores internos y entornos de test</b><br><span>Generan URLs thin/duplicadas; marcar noindex,follow y no enlazar a staging.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Parámetros y UTM</b> <span class="tag t-high">importante</span><br><span>namespace/fechas del motor no generan duplicados; UTM solo en enlaces externos entrantes, nunca internos.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Enlaces internos a páginas no indexables</b> <span class="tag t-pat">patrón frecuente</span><br><span>Área de cliente, legales y formularios en footer/menú: nofollow o fuera de zonas globales.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Enlaces internos siempre a 200</b><br><span>Evitar enlazar a 3xx y a 403 (típico en imágenes con permiso denegado).</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>PDFs y subdominios residuales</b><br><span>PDFs indexables sueltos (canonical vía header) y recursos fuera de www bajo control.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Redirección http a https</b> <span class="tag t-crit">crítico</span><br><span>Todo el http fuerza a https con 301.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Coherencia de dominio</b><br><span>Una sola versión: www vs no-www y con/sin barra final unificados con 301.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sitemap enviado en GSC y en Bing</b><br><span>Verificar que el sitemap.xml está dado de alta en Search Console y en Bing Webmaster Tools.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Archivo llms.txt</b> <span class="tag t-low">mejora</span><br><span>Buena práctica emergente para guiar a los buscadores con IA.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">2</div><h2>Contenido y semántica</h2></div>
+  <p class="sec-desc">Etiquetas, jerarquía, duplicidades, idiomas y datos estructurados.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Title</b> <span class="tag t-crit">crítico</span><br><span>Longitud adecuada, con keyword y marca, sin duplicar entre páginas y distinto del H1.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Meta description</b><br><span>Única, atractiva y en el rango de longitud recomendado.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Un solo H1 y jerarquía correcta</b> <span class="tag t-high">importante</span><br><span>H2-H3 sin saltos ni encabezados desordenados.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Duplicidades de texto</b> <span class="tag t-high">importante</span><br><span>Entre fichas de hotel, entre idiomas, FAQs repetidas o contenido delgado; diferenciar o consolidar con canonical.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sin cloaking</b> <span class="tag t-crit">crítico</span><br><span>Mismo contenido a bots y usuarios; servir distinto puede acarrear penalización manual.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Módulos de FAQs con FAQPage</b> <span class="tag t-pat">patrón frecuente</span><br><span>En hoteles, destinos y landings de servicios; hoy suelen faltar por completo.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Alt en imágenes</b><br><span>Presentes y descriptivos, no vacíos.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Datos estructurados ampliados</b> <span class="tag t-pat">patrón frecuente</span><br><span>Además de Hotel/Product/Breadcrumb/FAQ/Review: ItemList, Offer, HotelRoom, ImageObject, LocalBusiness/Organization, VideoObject, ContactPage, HowTo, Person.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Schema válido y coherente</b><br><span>Un único marcado Hotel por página; @id/url del JSON-LD igual a la canónica; BreadcrumbList con migas visibles.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>hreflang</b> <span class="tag t-crit">crítico</span><br><span>En multiidioma, con retorno recíproco y x-default.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Ratio texto/HTML y legibilidad</b><br><span>Suficiente texto real frente al maquetado; frases claras para usuario y para IA.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Frescura</b><br><span>Fecha de publicación o actualización visible y en datos estructurados.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Open Graph y Twitter Cards</b><br><span>og:title, og:image, og:description y equivalentes Twitter, por el CTR al compartir.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">3</div><h2>Enlaces internos</h2></div>
+  <p class="sec-desc">Bloque clave y casi siempre débil: cómo se reparte la autoridad dentro del sitio.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Anchor text descriptivo</b> <span class="tag t-pat">patrón frecuente</span><br><span>Enlazar con la keyword o el nombre del hotel/sección, no "Saber más", "Ver más" o "Descubre".</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Que los botones sean enlaces reales</b> <span class="tag t-high">importante</span><br><span>Elementos con clases CSS/JS sin &lt;a href&gt; no transmiten enlazado.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Módulos de relacionados</b><br><span>Hoteles y artículos relacionados por destino, cercanía o categoría en fichas y posts.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Enlaces contextuales en el contenido</b><br><span>Dentro del cuerpo de artículos y secciones, no solo en navegación.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>No depender de las cookies</b><br><span>Los módulos de enlazado deben verse aunque no se acepte el banner; si no, los bots no los ven.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">4</div><h2>Arquitectura de URLs y secciones</h2></div>
+  <p class="sec-desc">Estructura de contenidos que buscadores y LLMs entienden mejor.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Landings por sección del hotel</b> <span class="tag t-pat">patrón frecuente</span><br><span>Habitaciones, servicios, galería, ofertas, spa en URLs propias, no todo en una ficha.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Landings y listados de destino</b> <span class="tag t-pat">patrón frecuente</span><br><span>"Hoteles en [destino]" con texto propio y FAQs para atacar genéricas y contextualizar fichas.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>URLs semánticas y jerárquicas</b><br><span>hotel/sección con keyword de destino, actualizando enlazado y migas con su 301.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>URLs de eventos sin año</b><br><span>Usar URL perenne (/comuniones/) y redirigir las anuales para acumular autoridad.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sin genéricas que canibalicen la home</b><br><span>Retirar "hoteles y destinos" que compiten con la home; colgar fichas del dominio.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">5</div><h2>Internacionalización</h2></div>
+  <p class="sec-desc">Más allá del hreflang: cómo se cambia de idioma y de mercado.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Selector de idioma con enlace directo</b> <span class="tag t-pat">patrón frecuente</span><br><span>&lt;a href&gt; a la URL traducida equivalente, no a la home ni por redirección JS.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Popup de geolocalización</b> <span class="tag t-low">mejora</span><br><span>Sugerir dominio/idioma sin redirección forzada, útil con dominios en varios países.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">6</div><h2>Rendimiento y Core Web Vitals</h2></div>
+  <p class="sec-desc">Velocidad real, estabilidad visual, imágenes y peso de scripts, con foco en hero y GTM.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>LCP, CLS e INP</b> <span class="tag t-crit">crítico</span><br><span>Identificar qué elemento marca el LCP (a menudo el hero con lazyload mal puesto).</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Lazyload en imágenes principales</b> <span class="tag t-high">importante</span><br><span>El hero y lo above the fold no deben llevar lazyload.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Carruseles infinitos</b><br><span>Que no carguen imágenes de más ni bloqueen el hilo principal.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Peso del GTM</b> <span class="tag t-high">importante</span><br><span>Número de tags, píxeles y scripts de terceros que cargan.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Imágenes al tamaño mostrado</b> <span class="tag t-pat">patrón frecuente</span><br><span>WebP/AVIF con srcset/sizes; no servir una grande reescalada por CSS; con width/height.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Imágenes en &lt;img&gt;, no en background CSS</b><br><span>Las de fondo pierden alt y width/height.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Nombres de archivo SEO-friendly</b><br><span>Con guiones y keyword, sin espacios ni guiones bajos.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>TTFB, caché y HTTP/2-3</b><br><span>Respuesta del servidor, TTL de caché y protocolo como palancas del LCP.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>JS y CSS que bloquean el render</b><br><span>Minimizados y diferidos donde sea posible.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>preconnect / preload</b><br><span>Hacia recursos críticos y el dominio del motor de reservas.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Peso de página, DOM y fuentes</b><br><span>Controlados; fuentes web con preload y font-display.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Métricas de laboratorio y Lighthouse</b> <span class="tag t-low">mejora</span><br><span>FCP, Speed Index, TTI, TBT; puntuaciones Performance, Best Practices, Accessibility y SEO.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Accesibilidad WCAG AA</b><br><span>Nombre accesible en botones/enlaces, label en formularios, contraste.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>AMP / PWA</b> <span class="tag t-low">mejora</span><br><span>Si existen, bien implementados y sin generar duplicados.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">7</div><h2>Técnico y seguridad</h2></div>
+  <p class="sec-desc">HTTPS, cabeceras, enlaces rotos y usabilidad móvil.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>HTTPS y mixed content</b> <span class="tag t-crit">crítico</span><br><span>Certificado correcto y sin recursos servidos por HTTP.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Cabeceras de seguridad</b><br><span>HSTS, Content-Security-Policy, X-Frame-Options, X-Content-Type-Options.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Enlaces rotos</b> <span class="tag t-high">importante</span><br><span>Internos y externos, con sus códigos de estado.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Breadcrumbs y profundidad de clic</b><br><span>Migas coherentes y páginas clave a pocos clics.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Usabilidad móvil</b><br><span>Viewport correcto, favicon y experiencia móvil real.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">8</div><h2>Ficha de Google (Perfil de Empresa)</h2></div>
+  <p class="sec-desc">Clave en hoteles: muchas reservas y llamadas salen de aquí antes de entrar en la web.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>NAP coherente</b> <span class="tag t-crit">crítico</span><br><span>Nombre, dirección y teléfono idénticos a la web; sin fichas duplicadas ni fantasma.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Búsqueda de marca en Google</b> <span class="tag t-crit">crítico</span><br><span>Buscar el nombre del hotel y revisar qué muestra Google: ficha, sitio, opiniones y coherencia general.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Menciones del nombre anterior (rebranding)</b> <span class="tag t-pat">patrón frecuente</span><br><span>Tras un cambio de nombre, muchos sitios, directorios y citas siguen usando el nombre antiguo; unificar como con el NAP.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Categorías</b><br><span>Principal correcta (Hotel, Hotel de playa) y secundarias bien elegidas.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Redes sociales integradas</b><br><span>Perfiles sociales vinculados a la ficha y coherentes con la marca.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Sección de descripción</b><br><span>Descripción de la ficha completa y con las keywords relevantes.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Enlaces</b><br><span>Sitio web y enlace de reservas al motor con parámetros limpios y UTM de control.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Horarios</b><br><span>Horarios, especiales de temporada y zona horaria correctos.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Descripción y atributos</b><br><span>Descripción completa con keywords; atributos activados (piscina, parking, wifi, mascotas).</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Fotos</b><br><span>Suficientes y actualizadas (fachada, habitaciones, zonas comunes, logo) en buena resolución.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Reseñas</b> <span class="tag t-high">importante</span><br><span>Volumen, nota media, ritmo de entrada y porcentaje de respuesta del hotel.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Preguntas y publicaciones</b><br><span>Q&amp;A sin respuestas de terceros y Posts/ofertas recientes.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Coherencia con la web</b><br><span>Alineada con los datos estructurados de tipo Hotel del sitio.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">9</div><h2>GEO, AEO y entidad de marca</h2></div>
+  <p class="sec-desc">Ser citado por ChatGPT, Perplexity y AI Overviews, y que Google entienda bien la marca.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Señales E-E-A-T y autoría</b> <span class="tag t-geo">GEO</span><br><span>Autores/expertos verificados (director, revenue, chef) con credenciales y schema Person.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Claridad de entidades</b> <span class="tag t-geo">GEO</span><br><span>Hotel, marca y ubicación sin ambigüedad y conectados con datos estructurados.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Desambiguación de la marca</b> <span class="tag t-high">importante</span><br><span>Si el buscador la confunde con otros grupos: "Sobre nosotros", sede, consolidar knowledge graph.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Opiniones propias</b><br><span>Secciones de opiniones en home y fichas enlazando a los GBP, para no ceder "opiniones [marca]" a terceros.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Densidad factual</b> <span class="tag t-geo">GEO</span><br><span>Datos concretos (distancias, precio desde, nº de habitaciones, servicios) frente a relleno.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Respuesta directa y FAQ/HowTo</b> <span class="tag t-geo">AEO</span><br><span>Responder en las primeras líneas; encabezados como pregunta con FAQPage/HowTo schema.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Off-page y backlinks</b><br><span>Autoridad y perfil de enlaces del país objetivo; monitorizar a la competencia.</span></span></li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-h"><div class="sec-num">10</div><h2>Motor, analítica y estrategia</h2></div>
+  <p class="sec-desc">Continuidad de medición y lectura de datos para priorizar.</p>
+  <ul class="checks">
+    <li><span class="box"></span><span class="txt"><b>Continuidad de medición web-motor</b> <span class="tag t-high">importante</span><br><span>El Page View dispara en ambos contextos aunque no coincidan los IDs (regex de activador).</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>URLs del motor</b><br><span>No genera URLs indexables basura; enlaces limpios y sin nofollow innecesario.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Logo del motor (host logo) enlaza a la web</b><br><span>En el proceso de reserva, el logo debe llevar a la misma web y sin redirección.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Configuración del motor coherente</b><br><span>Revisar ajustes detectados (p. ej. ocupación mal configurada) frente al contenido de la ficha.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Dependencia de marca vs genérico (GSC)</b> <span class="tag t-pat">patrón frecuente</span><br><span>Si casi todo el tráfico es de marca o UTMs de GBP, las secciones no posicionan por genéricas.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Solape SEM/SEO en marca</b><br><span>Si el SEO ya está en top de marca, reasignar presupuesto SEM a genéricas con volumen.</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Keywords en segunda página</b> <span class="tag t-low">mejora</span><br><span>Con volumen e impresiones altas: empujarlas al Top 10 (también ayuda a ser citado por LLMs).</span></span></li>
+    <li><span class="box"></span><span class="txt"><b>Seguimiento de rankings</b><br><span>Marca, "hotel + destino" y genéricas, para cruzar con los hallazgos técnicos.</span></span></li>
+  </ul>
+</section>
+
+<footer>
+  Checklist de auditoría SEO para hoteles - plantilla de trabajo interna. Prioriza siempre lo marcado como crítico y los patrones frecuentes. Consolidado a partir de referencias públicas y de auditorías propias de Paraty Tech.
+</footer>
+</div>
+</body>
+</html>

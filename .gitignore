@@ -1,0 +1,19 @@
+# === Entregables con datos de cliente — NUNCA al repositorio ===
+informes/
+
+# === Secretos y credenciales (van en variables de entorno, no en el repo) ===
+.env
+*.key
+gsc_client_secrets.json
+service_account.json
+client_secrets.json
+
+# === Config local del proyecto (usa .mcp.json.example como plantilla) ===
+.mcp.json
+
+# === Temporales / SO / Python ===
+.DS_Store
+scratchpad/
+__pycache__/
+*.pyc
+*.pyo
