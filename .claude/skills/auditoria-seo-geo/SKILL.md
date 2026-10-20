@@ -50,13 +50,29 @@ contrastar y uno que se tiene que creer. Dos reglas:
 
 1. **Tabla de fuentes al principio del informe**, como apartado 0
    («Metodología y fuentes»), con una fila por fuente: código corto,
-   herramienta, fecha, alcance y **qué apartados alimenta**. Códigos del tipo
-   `SF-15/09`, `SM-16/09`, `GSC`, `GEO`, `SISTRIX`, `SISTRIX-AI`.
-2. **Línea de fuente en cursiva debajo de cada título**, subapartados
-   incluidos: `*Fuente: Screaming Frog, crawl del 15/09/2026 (2.940 URLs,
-   605 HTML).*` Si el apartado cruza dos fuentes, se citan las dos. Si es
-   criterio propio, `*Elaboración propia a partir de los datos de los
+   herramienta, fecha, **muestra** y **qué apartados alimenta**. Códigos del
+   tipo `SF-15/09`, `SM-16/09`, `GSC`, `GEO`, `SISTRIX`, `SISTRIX-AI`. La
+   fecha es el **rango real** (`13/05/2025 - 12/09/2026, 488 días`), no «16
+   meses»; y la muestra son las cifras (`2.940 URLs, 605 HTML, 598 con código
+   200`), no un adjetivo.
+2. **Ficha de fuente en cursiva debajo de cada título**, subapartados
+   incluidos, con **cinco elementos**: herramienta, **filtro exacto**, rango
+   de fechas, tamaño de la muestra y el anexo donde está el detalle. Por
+   ejemplo: `*Fuente: Google Search Console, 13/05/2025 - 12/09/2026, pestaña
+   Consultas (1.000 principales), impresiones y clics no-marca por cluster.*`
+   El filtro es lo que hace el dato reproducible: sin él, el cliente no puede
+   repetir la consulta. Si el apartado cruza dos fuentes, se citan las dos. Si
+   es criterio propio, `*Elaboración propia a partir de los datos de los
    apartados anteriores.*`
+3. **Bloque «Configuración de cada fuente»** debajo de la tabla, una entrada
+   por código, para no repetirlo apartado por apartado: modo de rastreo y
+   ámbito, si se respetó `robots.txt`, si se rastrearon subdominios, **si el
+   renderizado de JavaScript estaba activado o no**, qué módulos se activaron,
+   y en GSC la propiedad, el tipo de búsqueda, los filtros aplicados y las
+   pestañas del export. Esto es lo que convierte el informe en reproducible.
+   Y se dice lo incómodo: «el proyecto se creó el 01/09, así que no hay 30
+   días de histórico», «AI Overviews está configurado pero no devolvió
+   respuestas en esa ventana».
 
 En esa misma tabla van **las fuentes que quedaron pendientes y por qué**, y
 **las advertencias de muestreo**. Dos ejemplos reales que hay que replicar
@@ -363,8 +379,14 @@ Qué se saca, y todo va al informe:
 - **Split por dispositivo, país e idioma.** Busca el país con buena posición
   media y sin contenido nativo: es un mercado escondido, y es un hallazgo.
 - **Top URLs por clics**, comparando cada URL con su variante parametrizada
-  (`?utm_source=…`) si existe. Ahí se ve la canibalización que ninguna
-  herramienta marca como error.
+  (`?utm_source=…`) si existe. **Ojo: que la URL con UTM de la ficha de Google
+  concentre los clics no es una canibalización.** Si la canonical apunta a la
+  limpia, es medición válida y Search Console simplemente atribuye el tráfico
+  a la URL con parámetro. Se describe en neutro —«es tráfico de la ficha de
+  hotel que Search Console atribuye a la URL con UTM»— y no se marca como
+  crítico. Comprueba la canonical antes de escribir nada. La canibalización de
+  verdad se detecta con el cruce de keywords de SISTRIX: dos URLs propias
+  compitiendo por la misma consulta.
 - **Consultas en segunda página** (posición 11-30 con más de 100
   impresiones), con sus impresiones y clics sumados. Es el bloque de retorno
   más rápido de la auditoría, porque se mueve con contenido y no con enlaces.
@@ -401,8 +423,12 @@ por impacto × esfuerzo**, que es lo que permite al cliente empezar el lunes.
 | **C** | Impacto medio | Trimestre |
 | **D** | Complementarias, de recorrido largo (E-E-A-T, PR, monitorización) | Continuo |
 
-Cada acción del plan lleva **la referencia al apartado que la justifica**
-(«ver 2.2.9»), el impacto y el esfuerzo. Y cuando haya datos de GSC, el
+Las acciones se numeran **del 1 al N de corrido a lo largo de los cuatro
+bloques**, no reiniciando en cada uno: así se puede decir «la 7» en una
+reunión y todos miran lo mismo. Cada acción lleva **la referencia al apartado
+que la justifica** («ver 2.2.2»), el impacto y el esfuerzo. Y las que no
+deberían ejecutarse sin que las valide una persona —retiradas del índice,
+redirecciones masivas, disavow— se marcan **«Para revisión humana»**. Y cuando haya datos de GSC, el
 impacto va cuantificado: impresiones a consolidar, clics que no se capturan,
 uplift estimado — marcado como estimación si lo es.
 
@@ -499,8 +525,40 @@ apartados de fichas y de motor de reservas se sustituyen por lo que
 corresponda. Pero **el esqueleto de 0 a 7 se mantiene**, igual que la línea de
 fuente bajo cada título y los anexos.
 
-El **resumen ejecutivo** abre el cuerpo: 5-8 líneas, lo crítico primero, en
-lenguaje de negocio y no de crawler, remachado con una fila de 3-4 KPI.
+**El resumen ejecutivo abre el cuerpo y tiene anatomía propia.** No es un
+párrafo de relleno: es la pieza que lee quien decide, y en la versión de
+cliente de Landmar ocupa seis bloques en este orden:
+
+1. **Una frase de diagnóstico** que reencuadra el problema, no que lo
+   enumere: «Landmar tiene un problema de captación, no de visibilidad».
+   Seguida de 3-4 líneas que la sostienen con dos cifras y un ejemplo en
+   lenguaje de cliente («la gente que ya conoce la marca entra, y la que busca
+   “hotel todo incluido en Tenerife” ve la marca y pasa de largo»).
+2. **Fila de 4 KPI** con su línea de fuente debajo.
+3. **«Lo que ya funciona»**: cuatro o cinco frases, cada una con su cifra y su
+   fuente entre paréntesis. El cliente necesita saber qué no tocar, y esto es
+   lo que hace creíble el resto.
+4. **«Dónde está el dinero»**: tabla de clusters de demanda con impresiones,
+   clics y una columna «qué falla» de una línea.
+5. **«Los N hallazgos que hay que atender primero»**: tres o cuatro, numerados,
+   cada uno con la cifra, la fuente y la referencia al apartado («ver 2.2.2»).
+6. **«Plan de trabajo»**: dos o tres líneas diciendo cuántas acciones hay y
+   cómo se reparten por bloques.
+
+Y un **recuadro de una sola frase** con la única cosa que hay que hacer si
+solo se hace una: «Si solo se hace una cosa este trimestre, que sea enlazar
+las 111 URLs huérfanas y sacar del noindex la landing de todo incluido. El
+contenido ya está escrito y pagado. Solo hay que dejar que Google lo vea.» Es
+el párrafo que se recuerda; merece la pena pelearlo.
+
+**Lo que no va en la pieza de cliente.** El apartado «Puntos nuevos respecto a
+la auditoría anterior» es control interno: sirve para no repetirse entre
+auditorías, pero al cliente no le interesa qué vio o no vio la versión
+pasada. Se mantiene en la versión de trabajo y se quita de la entregable.
+«Datos pendientes» sí se queda, y cierra el documento.
+
+El pie de la pieza de cliente lleva el contacto del mercado que corresponda
+(`reference/markets-contacts.md` de la brand skill), no solo el tagline.
 
 **Cada apartado y subapartado lleva, en este orden:**
 

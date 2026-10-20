@@ -19,6 +19,11 @@ _Antes de auditar: confirmar qué tenemos y a qué damos acceso._
 _Que Google rastree e indexe la versión correcta, sin duplicados, bloqueos ni desperdicio de crawl budget._
 
 - [ ] **Canonical** [C] — Existe, apunta a la versión correcta y sin cadenas de canonicals.
+- [ ] **Orden para sacar algo del índice** [C] — Primero `noindex` (por
+  cabecera `X-Robots-Tag` si la página se pinta con JavaScript), después la
+  retirada en Search Console, y **solo al final** `Disallow` en `robots.txt`.
+  Nunca al revés: si se bloquea primero, Google no puede leer el `noindex` y
+  las URLs se quedan indexadas.
 - [ ] **Meta robots / X-Robots-Tag** [C] — Sin noindex ni nofollow accidentales. Las directivas deben ir dentro del <head>.
 - [ ] **Sin noindex y canonical a la vez** — Señales contradictorias; una URL noindex no debe llevar canonical.
 - [ ] **robots.txt** — No bloquea recursos de render (CSS/JS) ni secciones que deban indexar.
