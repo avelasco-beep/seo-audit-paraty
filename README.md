@@ -11,7 +11,7 @@ AI Overviews) y entregar un informe accionable con la identidad corporativa.
 
 ```
 .claude/skills/auditoria-seo-geo/
-├── SKILL.md                     # Proceso de trabajo (98 checks, 11 bloques)
+├── SKILL.md                     # Proceso, fuentes y formato del informe
 ├── reference/
 │   ├── checklist.md             # Lista de comprobaciones
 │   ├── checklist-auditoria-seo.html
@@ -59,10 +59,22 @@ Copia la plantilla y ajusta las rutas a tu máquina:
 cp .mcp.json.example .mcp.json
 ```
 
-- **screaming-frog**: servidor MCP integrado de Screaming Frog (modo Base de Datos).
+- **screaming-frog**: servidor MCP integrado de Screaming Frog. Requiere **modo
+  Base de Datos** (Configuración → Sistema → Modo de almacenamiento) y el
+  servidor MCP arrancado; en modo memoria no levanta.
+- **semrush**: [MCP de Semrush](https://mcp.semrush.com/v2/mcp) por OAuth.
+  Consume unidades de API por línea devuelta, así que conviene `display_limit`
+  bajo.
 - **gscServer**: [`mcp-search-console`](https://github.com/AminForou/mcp-gsc) para
   conectar Google Search Console. Necesita credenciales OAuth de Google Cloud
   (ver `.env.example`).
+
+Además, el proceso de `SKILL.md` se apoya en conectores de claude.ai que se
+autorizan desde la propia cuenta, no desde este repositorio: **SISTRIX**
+(visibilidad, enlaces y AI Check), **GEO Metrics** (visibilidad en LLM),
+**Google Drive** (los anexos del informe) y **Supermetrics** (alternativa para
+GSC, Ahrefs, Similarweb y Trends). Cada apartado del informe declara de qué
+fuente sale; ver §1b de `SKILL.md`.
 
 ## Convenciones
 

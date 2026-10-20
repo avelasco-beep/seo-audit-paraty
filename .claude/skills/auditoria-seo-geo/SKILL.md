@@ -36,6 +36,55 @@ Necesitas del usuario, y si no lo dice, **pregunta solo lo que bloquee**:
 No bloquees la auditoría técnica esperando accesos. Todo el bloque 1-7 y
 buena parte del 9 se audita sin credenciales.
 
+Y antes de empezar, **comprueba qué fuentes tienes vivas** (§1b). No es lo
+mismo decir "sin datos de visibilidad" que no haber mirado si SISTRIX
+responde.
+
+---
+
+## 1b. Fuentes declaradas y trazabilidad
+
+**Toda cifra del informe sale de una fuente con nombre, fecha y alcance, y el
+informe lo dice.** Es la diferencia entre un informe que el cliente puede
+contrastar y uno que se tiene que creer. Dos reglas:
+
+1. **Tabla de fuentes al principio del informe**, como apartado 0
+   («Metodología y fuentes»), con una fila por fuente: código corto,
+   herramienta, fecha, alcance y **qué apartados alimenta**. Códigos del tipo
+   `SF-15/09`, `SM-16/09`, `GSC`, `GEO`, `SISTRIX`, `SISTRIX-AI`.
+2. **Línea de fuente en cursiva debajo de cada título**, subapartados
+   incluidos: `*Fuente: Screaming Frog, crawl del 15/09/2026 (2.940 URLs,
+   605 HTML).*` Si el apartado cruza dos fuentes, se citan las dos. Si es
+   criterio propio, `*Elaboración propia a partir de los datos de los
+   apartados anteriores.*`
+
+En esa misma tabla van **las fuentes que quedaron pendientes y por qué**, y
+**las advertencias de muestreo**. Dos ejemplos reales que hay que replicar
+siempre que apliquen: el export de consultas de Search Console trae las 1.000
+principales, que pueden ser el 64% de los clics y solo el 30% de las
+impresiones, así que los porcentajes de marca y no-marca se calculan sobre esa
+muestra y hay que decirlo; y la tabla de páginas de GSC reparte impresiones de
+forma que la suma por idioma supera el total del dominio, así que ese desglose
+se lee como reparto relativo, no como cifras absolutas.
+
+**Fuentes conectadas por MCP en este proyecto.** Compruébalo con una llamada,
+no lo supongas:
+
+| Fuente | MCP | Qué hace falta |
+|---|---|---|
+| Screaming Frog | `screaming-frog` | Modo Base de Datos + servidor MCP arrancado (Fase 1) |
+| SISTRIX | `claude.ai Sistrix` | OAuth ya hecho. Visibilidad, keywords, enlaces y **AI Check** |
+| GEO Metrics | `claude.ai Geo Metrics` | Conectado, pero **solo cubre dominios con proyecto creado**: `list_projects` primero |
+| Semrush | `semrush` | Conectado. Consume unidades de API: `display_limit` bajo y nunca `phrase_questions` a lo grande |
+| Google Search Console | `gscServer` | Necesita `~/.config/paraty/gsc_client_secrets.json`. Si no existe, el servidor no arranca: pídele el fichero de credenciales al usuario antes de dar GSC por imposible |
+| Google Drive / Sheets | `claude.ai Google Drive` | Conectado. Es lo que permite montar los anexos (§5.6) |
+| Supermetrics | `claude.ai Supermetrics` | Conectado. Alternativa para GSC, Ahrefs, Similarweb y Trends |
+| PageSpeed Insights | `scripts/psi.py` | Clave en `~/.config/paraty/pagespeed.key` |
+
+Si una fuente no está disponible, el apartado que depende de ella se marca
+como pendiente **con el motivo concreto** y se recoge en «Datos pendientes»
+al final del informe. No se rellena con criterio general disfrazado de dato.
+
 ---
 
 ## 2. Fase 1 — Crawl con Screaming Frog (MCP)
@@ -55,10 +104,45 @@ El servidor MCP integrado de Screaming Frog está declarado en el
    puede auditar mucho con `WebFetch` sobre las URLs clave, solo pierdes la
    cobertura a escala de sitio.
 
-Del crawl saca, como mínimo: códigos de respuesta y cadenas de redirección,
-canonicals, meta robots, titles y meta descriptions (duplicados y longitud),
-H1/H2, hreflang, imágenes sin alt y sobredimensionadas, enlaces internos y
-rotos, profundidad de clic, datos estructurados y ratio texto/HTML.
+**Un crawl no basta. Hacen falta tres pasadas**, y cada una alimenta
+apartados distintos del informe (dilo así en la tabla de fuentes del §1b):
+
+1. **Crawl completo del dominio.** Códigos de respuesta y cadenas de
+   redirección, canonicals, meta robots, titles y meta descriptions
+   (duplicados y longitud), H1/H2, imágenes sin alt y sobredimensionadas,
+   enlaces internos y rotos, profundidad de clic, recuento de palabras, thin
+   content, legibilidad y ratio texto/HTML. Pide también el **«Resumen del
+   rastreo»** (`sf_generate_report`): es la vista de pájaro con los problemas
+   ordenados por gravedad, y va a un anexo tal cual.
+2. **Rastreo del `sitemap.xml` en modo lista**, y **cruzado con el crawl
+   anterior**. Es la única forma de encontrar las **URLs huérfanas**: las que
+   están declaradas en el sitemap y no reciben ni un enlace interno. En
+   Landmar eran 111, el 18,3% del sitemap, landings de captación de 837
+   palabras de media, y resultó ser el hallazgo de mejor retorno de toda la
+   auditoría. También saca lo contrario: URLs indexables enlazadas que no
+   están en el sitemap. **Sin esta pasada el apartado del sitemap sale vacío
+   y se da por limpio lo que no lo está.**
+3. **Crawl con extracción de datos estructurados activada** (y validación de
+   schema.org y de Google). Cambia el diagnóstico por completo: lo normal es
+   que el marcado exista y sin errores de sintaxis, y que lo que falle sean
+   los **campos que Google pide para activar el resultado enriquecido**.
+   Reporta cobertura por plantilla, errores que bloquean, avisos, URLs sin
+   marcado y tipos que no existen y deberían (Offer, FAQPage,
+   AggregateRating, VideoObject). Y agrupa por plantilla del CMS, no por URL:
+   «una corrección, 347 URLs arregladas» vende mucho mejor que «347 avisos».
+
+Dos pasos más que se olvidan y conviene lanzar:
+
+- **Análisis de rastreo** («Analizar rastreo» / crawl analysis). Es el paso
+  que rellena los filtros de **contenido duplicado y semiduplicado** y los de
+  enlazado. Si no se ejecuta, esos apartados quedan pendientes: dilo en «Datos
+  pendientes» en vez de concluir que no hay duplicados.
+- **Renderizado con JavaScript**, al menos sobre la home y una plantilla de
+  cada tipo. El crawl por defecto va en modo texto, y hay schema y contenido
+  que se inyecta en cliente (ver el patrón del FAQPage de Paraty). No des por
+  ausente lo que no has mirado en el DOM.
+- El **módulo de accesibilidad** si se quiere medición WCAG: va desactivado
+  por defecto y hay que activarlo antes de lanzar, no después.
 
 Comprueba a mano lo que el crawl no ve: `robots.txt`, `sitemap.xml`,
 `llms.txt`, la 404 real (pide una URL inventada), la versión con mayúsculas
@@ -135,32 +219,164 @@ y con acentos de una URL, http→https, www vs no-www y la barra final.
   Supermetrics y Google Drive de la sesión sirven para esto.
 - **Off-page y autoridad** (ver Fase 2b).
 
-## 3b. Fase 2b — Off-page y autoridad
+## 3b. Fase 2b — Off-page, autoridad y competencia
 
-Era el mayor punto ciego del método: mide la autoridad, el perfil de enlaces
-y el tráfico orgánico. Todo vía **Supermetrics** (flujo: `data_source_discovery`
-→ `accounts_discovery` → `field_discovery` → `data_query`). Orden de
-preferencia, del dato más fiable y gratis al estimado:
+Mide la autoridad, el perfil de enlaces, la visibilidad y con quién compite de
+verdad el dominio. **La fuente principal es SISTRIX por MCP**, que está
+conectada y no necesita accesos del hotel.
 
-1. **Google Search Console** (`ds_id=GW`) — la fuente primero: enlaces que
-   Google **de verdad** cuenta (sitios que más enlazan, páginas más
-   enlazadas, textos de anclaje) y el tráfico orgánico real (clics,
-   impresiones, queries). Requiere que el hotel dé acceso a la propiedad.
-2. **Ahrefs** (`ds_id=AHRF2`) o **Semrush** (`ds_id=SR`) — profundidad de
-   off-page: Domain Rating / Authority Score, dominios de referencia,
-   **crecimiento de backlinks en el tiempo** (para pillar picos raros que
-   pidan disavow) y anchors. Necesita cuenta del hotel/agencia en esa
-   herramienta.
-3. **Similarweb** (`ds_id=SW`) — tráfico y engagement estimados; sirve para
-   **comparar con la competencia** sin necesitar sus accesos.
-4. **Google Trends** (`ds_id=GT`, sin login) — interés de marca vs genéricas
-   y estacionalidad; disponible siempre, útil aunque no haya ningún acceso.
+**SISTRIX — `mcp__claude_ai_Sistrix__*`, siempre con el `country` del mercado
+(`es`, `uk`, `fr`, `de`…), nunca con el `de` que trae por defecto:**
 
-Qué llevar al informe: autoridad del dominio y evolución, nº de dominios de
-referencia y calidad, **picos anómalos de enlaces** (riesgo de SEO negativo →
-disavow), reparto marca vs genéricas del tráfico, y comparación con 1-2
-competidores de la misma plaza. Si no hay ningún acceso ni cuenta, dilo y
-tira de Trends y Similarweb (estimados), marcándolo como estimación.
+- `domain` con `view=visindex_overview`, y `view=visindex` + `history` →
+  índice de visibilidad y su evolución de las últimas 13 semanas. Di si hay
+  tendencia o si el dominio lleva un trimestre oscilando en la misma banda:
+  "no hay caída estructural, pero tampoco crecimiento" es un diagnóstico.
+- `domain` con `view=kwcount`, `kwcount_top10` y `urlcount` → keywords
+  posicionadas, cuántas en top 10 y cuántas URLs distintas rankean. **El
+  ratio top10/total es el dato que vale.** Muchas keywords mal posicionadas
+  valen menos que pocas bien posicionadas, y ese ratio permite compararse de
+  tú a tú con cadenas mucho mayores.
+- `domain` con `view=competitors` → competidores orgánicos **reales**, no los
+  que elegiría el cliente. Casi siempre salen OTAs y portales de reseñas
+  (Booking, TripAdvisor, Trivago) ocupando el espacio antes que la web
+  oficial; dilo con esas palabras. Y si aparecen dominios ajenos al sector,
+  suelen ser la consecuencia de algún contenido de blog que rankea fuera de
+  nicho: mirarlo, porque conecta con el apartado de contenidos.
+- `domain` con `view=opportunities` → keywords en posición 11-12, a un paso
+  de la primera página. **Cruza cada una con la URL que la trabaja**: si esa
+  URL es huérfana o está en noindex, ese cruce es el hallazgo.
+- `domain` con `view=ranking_distribution` y `view=traffic_estimation` →
+  reparto por páginas de SERP y dónde está el tráfico dentro del dominio
+  (raíz, blog, fichas de hotel). Si las fichas que venden apenas capturan
+  tráfico propio, eso va al resumen ejecutivo.
+- `links` → URLs más enlazadas, dominios referentes y **anchor text**. Mira
+  el reparto entre `https://www.`, sin www y `http://`, y **si las URLs con
+  parámetros reciben enlaces externos**, que agrava cualquier canibalización.
+  En el anchor text es donde aparecen las **redes de spam**: busca anclas del
+  tipo «telegram @…», «pbn», «dofollow backlinks da 50», «link-legion». Si
+  las hay, rastrea su origen y **cuenta los dominios del mismo patrón**
+  (p. ej. 19 dominios `seo-anomaly-top-1XX.xyz` apuntando todos a la misma
+  URL con el mismo anchor y la misma fecha). Es un hallazgo de primer nivel,
+  riesgo de SEO negativo con recomendación de disavow, y no se detecta de
+  ninguna otra forma.
+- Compara el índice de visibilidad con **5-10 competidores**, etiquetando
+  cada uno (cadena nacional, cadena local, resort, internacional). La lectura
+  correcta no es compararse con el gigante del sector, que juega otra liga, es
+  compararse con su grupo real.
+
+**Semrush** (`backlinks_research`, `domain_overview`) cuando haga falta
+Authority Score o el crecimiento de backlinks en el tiempo. Ojo al consumo de
+unidades de API.
+
+**Supermetrics** como alternativa si falla lo anterior: `ds_id=GW` (GSC),
+`AHRF2` / `SR`, `SW` (Similarweb, estimado, útil para comparar con la
+competencia sin sus accesos) y `GT` (Trends, sin login).
+
+Qué llevar al informe: índice de visibilidad y evolución, keywords y ratio
+top 10, competidores reales etiquetados, dónde se concentran los enlaces,
+perfil de anchor text, **enlaces tóxicos con el recuento de dominios del
+mismo patrón**, enlaces de calidad que sí tiene el dominio, y targets
+naturales de link building cruzando los dominios que ya citan los LLM
+(Fase 2c) con los que ya enlazan a la competencia.
+
+---
+
+## 3c. Fase 2c — Visibilidad en IA, medida
+
+No vale con preguntarle a un LLM y contar la anécdota. Hay dos fuentes que dan
+cifras, y cada una es un apartado propio del informe.
+
+**SISTRIX AI Check — `mcp__claude_ai_Sistrix__ai_check`**, más `ai_tracker`,
+`ai_tracker_overview`, `ai_prompt_answers` y `ai_topicresearch`. Da, por país:
+
+- En **cuántos prompts** aparece el dominio, separando AI Overviews de AI
+  Mode, y si el dato lleva un mes estable o es un pico puntual.
+- **Citaciones** totales y **posición del dominio en el ranking de fuentes
+  citadas**. Puede ser la primera, por delante de YouTube o de las cadenas
+  grandes: eso es un titular en sí mismo.
+- **Qué URLs cita la IA**, con citaciones y prompts por URL. Aquí salen los
+  hallazgos que no aparecen en ninguna otra parte: que la URL más citada no
+  venda nada, o que la segunda más citada sea una **página huérfana** que la
+  IA encuentra y el propio site no enlaza.
+- **Qué prompts** la citan y **contra qué marcas** compite en las respuestas.
+  Esa lista no coincide con la competencia orgánica clásica, y conviene
+  tenerla delante al redactar contenido.
+- Si Search Console todavía no reporta AI Overviews para la propiedad, **dilo
+  explícitamente**: que GSC no lo reporte no significa que el dominio no esté
+  en las respuestas de IA.
+
+**GEO Metrics — `mcp__claude_ai_Geo_Metrics__*`.** Solo cubre dominios con
+proyecto creado: empieza por `list_projects` y, si el dominio no está, dilo y
+recomienda crear el proyecto en vez de dejar el apartado vacío. Si está:
+
+- `get_project_overview` → prompts activos, ejecuciones, **posición media
+  global**, **Share of Voice** y citaciones al dominio en 30 días.
+- `list_project_prompts` + `get_ranking_prompt_details` → rendimiento prompt a
+  prompt (posición, SOV, citaciones, menciones) y **desglose por motor**:
+  ChatGPT, Gemini, Claude, Perplexity, Copilot, DeepSeek, Grok, AI Mode y AI
+  Overviews. Señala el prompt donde la marca es fuerte y el prompt cabeza del
+  sector donde es invisible: ese contraste es el diagnóstico. Y si un motor
+  da cero, dilo con nombre.
+- `list_project_competitors` → ranking competitivo por SOV.
+- `list_project_citation_domains` + `get_citation_domain_details` →
+  **ecosistema de citación**. Clasifica los dominios en OTAs, portales de
+  reseñas, medios generalistas, blogs de viaje y competidores, y cuenta cada
+  grupo. De ahí sale la lista de targets de PR y de link building, y el dato
+  de cuántas citaciones suman los medios frente a las del cliente.
+- `get_project_domain_endpoints` → por qué URLs propias la citan. Pocos
+  endpoints citados significa que la web no está sirviendo como fuente de
+  verdad para los LLM.
+- `list_project_recommendations` + `get_recommendation_detail` → las
+  recomendaciones que genera la herramienta (social media, influencers, PR).
+  Van al informe resumidas y accionables, no copiadas en bruto.
+- `list_project_tracked_websites` + `get_website_traffic_overview` → tráfico
+  real de bots y referidos de IA. **Si el snippet no está verificado no hay
+  datos**, y entonces el hallazgo es instalar el snippet.
+- `get_geo_readiness_score`, `get_content_readiness_score`,
+  `get_seo_readiness_score` por endpoint y `get_topic_graph` del dominio,
+  cuando el análisis on-page esté configurado. Si no lo está, el hallazgo es
+  configurarlo.
+
+Cierra el apartado con **KPIs con valor objetivo a 3-6 meses** —SOV global,
+posición media, citaciones al dominio, SOV en el prompt cabeza del sector—, no
+con buenas intenciones.
+
+---
+
+## 3d. Fase 2d — Search Console, cuando hay acceso
+
+Es la fuente que convierte un hallazgo técnico en dinero: la que permite
+escribir «hay 2,4M de impresiones atrapadas en posición 51» en vez de «hay una
+canibalización». Pide **16 meses**, el máximo. Con `gscServer`
+(`get_search_analytics`, `get_advanced_search_analytics`,
+`compare_search_periods`, `get_search_by_page_query`, `inspect_url_enhanced`)
+o con el export manual que pegue el usuario.
+
+Qué se saca, y todo va al informe:
+
+- **Volumen global**: impresiones, clics, CTR y posición media ponderados.
+- **Split marca vs no-marca**, con una regex que incluya **las variantes mal
+  escritas de la marca y las submarcas**, que también son búsquedas de marca.
+  El gap de no-marca es casi siempre el titular del informe: "la marca
+  convierte, los genéricos aparecen y no capturan".
+- **Split por dispositivo, país e idioma.** Busca el país con buena posición
+  media y sin contenido nativo: es un mercado escondido, y es un hallazgo.
+- **Top URLs por clics**, comparando cada URL con su variante parametrizada
+  (`?utm_source=…`) si existe. Ahí se ve la canibalización que ninguna
+  herramienta marca como error.
+- **Consultas en segunda página** (posición 11-30 con más de 100
+  impresiones), con sus impresiones y clics sumados. Es el bloque de retorno
+  más rápido de la auditoría, porque se mueve con contenido y no con enlaces.
+- **Clusters de oportunidad cuantificados**: agrupa las consultas no-marca por
+  tema y da consultas, impresiones y clics de cada cluster. Un cluster
+  cuantificado justifica una landing; una intuición, no.
+- **Páginas con impresiones y cero clics**, con su porcentaje sobre el total
+  de páginas indexables. Es la lista de refresh de contenido.
+- **Marcas de la competencia** por las que rankea el dominio: justifican un
+  contenido comparativo.
+- **Cruce con el sitemap y con el crawl** para contar páginas indexables sin
+  ninguna impresión, y para detectar huérfanas que sí reciben impresiones.
 
 ---
 
@@ -174,6 +390,21 @@ Prioriza por impacto × esfuerzo, no por número de URLs afectadas:
 1. **Crítico** — bloquea indexación, canibaliza o rompe la conversión.
 2. **Importante** — pierde tráfico o autoridad de forma medible.
 3. **Mejora** — suma, pero no antes que lo anterior.
+
+Y el plan de acción del informe no es una lista plana: va en **cuatro bloques
+por impacto × esfuerzo**, que es lo que permite al cliente empezar el lunes.
+
+| Bloque | Qué entra | Plazo |
+|---|---|---|
+| **A** | Impacto alto, esfuerzo bajo — los quick wins | 1-2 semanas |
+| **B** | Impacto alto, esfuerzo medio-alto | 2-6 semanas |
+| **C** | Impacto medio | Trimestre |
+| **D** | Complementarias, de recorrido largo (E-E-A-T, PR, monitorización) | Continuo |
+
+Cada acción del plan lleva **la referencia al apartado que la justifica**
+(«ver 2.2.9»), el impacto y el esfuerzo. Y cuando haya datos de GSC, el
+impacto va cuantificado: impresiones a consolidar, clics que no se capturan,
+uplift estimado — marcado como estimación si lo es.
 
 Los **[PF] patrones frecuentes** de la checklist son los que más se repiten
 entre hoteles: revísalos siempre aunque el crawl salga limpio.
@@ -243,19 +474,54 @@ de Landmar y METT:
 
 ### 5.2 Estructura del informe
 
-Estructura que funciona (la de los informes mensuales del equipo):
+**El informe cubre toda la superficie auditada, no solo lo que falla.** Un
+listado plano de N hallazgos se lee como una lista de la compra; la estructura
+numerada por bloques deja ver al cliente qué se ha mirado, qué está bien y
+qué hay que tocar. Esta es la estructura de referencia, la de la auditoría de
+Landmar de septiembre de 2026:
 
-1. Portada — fondo azul oscuro `#202B37` con logo blanco (altura fija, sin
-   estirar), marca/hotel como H1, URL, fecha, alcance del crawl. El cuerpo del
-   informe (del §1 en adelante) va sobre blanco.
-2. Resumen ejecutivo — 5-8 líneas, lo crítico primero, en lenguaje de
-   negocio, no de crawler. Rematar con una fila de KPI (3-4 cifras).
-3. Hallazgos por bloque, en el orden de la checklist, cada uno con su
-   etiqueta de prioridad y las cuatro partes de la Fase 3. Incluye un bloque
-   de **off-page y autoridad** (Fase 2b) cuando haya datos.
-4. Plan de acción priorizado — qué se toca primero y quién lo toca
-   (hotel, desarrollo, Paraty).
-5. Método y limitaciones — qué se auditó y qué quedó sin comprobar y por qué.
+| Apartado | Contenido |
+|---|---|
+| **0** | **Metodología y fuentes** — tabla de fuentes con código, fecha, alcance y apartados que alimenta (§1b); fuentes pendientes; advertencias de muestreo |
+| — | **Índice** con todos los apartados y subapartados, y el enlace a la carpeta de anexos |
+| **1** | **Situación actual** — 1.1 tráfico (GSC) · 1.2 palabras clave y clusters de oportunidad · 1.3 competencia y visibilidad (SISTRIX) |
+| **2** | **Factores on-page** — 2.1 arquitectura · 2.2 rastreo y enlazado (robots, sitemap y huérfanas, 404, 3xx, subdominios, mayúsculas y no-ASCII, parámetros, etiquetas residuales en URL, canibalización por parámetros) · 2.3 titles · 2.4 meta descriptions · 2.5 encabezados · 2.6 imágenes · 2.7 canonicals · 2.8 noindex · 2.9 enlazado interno del site · 2.10 enlazado dentro de cada hotel y breadcrumb · 2.11 datos estructurados · 2.12 WPO por tipo de página · 2.13 hreflang e internacionalización · 2.14 seguridad, validación HTML y rendimiento móvil |
+| **3** | **Contenidos** — canibalización en el dominio y con subdominios, optimización de fichas de hotel, de artículos y de categorías, contenidos corporativos, duplicidades y thin content, contenido y consultas sin tráfico |
+| **4** | **AI Overviews y visibilidad en GEO** — medición de SISTRIX AI Check y lo que GSC reporta o no (Fase 2c), más el `llms.txt` propuesto escrito |
+| **5** | **Visibilidad GEO en LLMs** — GEO Metrics: overview, prompts monitorizados, Share of Model por motor, ranking competitivo, dominios citados, recomendaciones, diagnóstico y KPIs |
+| **6** | **SEO off-page** — métricas de autoridad, dónde se concentran los enlaces, anchor text, enlaces tóxicos y de calidad, targets de link building |
+| **7** | **Priorización de acciones** — bloques A/B/C/D por impacto × esfuerzo (Fase 3) |
+| — | **Puntos nuevos respecto a la auditoría anterior**, si hay una previa con la que comparar |
+| — | **Datos pendientes** — qué falta, por qué y cómo se consigue |
+
+Adapta la numeración a lo que tenga el cliente: si no es un hotel, los
+apartados de fichas y de motor de reservas se sustituyen por lo que
+corresponda. Pero **el esqueleto de 0 a 7 se mantiene**, igual que la línea de
+fuente bajo cada título y los anexos.
+
+El **resumen ejecutivo** abre el cuerpo: 5-8 líneas, lo crítico primero, en
+lenguaje de negocio y no de crawler, remachado con una fila de 3-4 KPI.
+
+**Cada apartado y subapartado lleva, en este orden:**
+
+1. La **línea de fuente** en cursiva (§1b).
+2. **Qué pasa**, con la cifra exacta y URLs de ejemplo. Si está bien, se dice
+   que está bien y con qué cifra se demuestra: el cliente necesita saber qué
+   no tocar.
+3. **Por qué importa**, en lenguaje de negocio.
+4. **Solución propuesta**, como lista numerada de acciones concretas y en
+   orden. No una frase: lo que hay que tocar, paso a paso.
+5. El **enlace al anexo** con el detalle completo (§5.6).
+
+Y hay dos cosas que separan un informe correcto de uno convincente:
+
+- **Cruza los apartados entre sí.** «Esto conecta con 1.2», «las dos primeras
+  son justo las que 2.8 propone sacar del noindex», «es la tercera vez que
+  aparece el mismo patrón, con tres fuentes distintas». Cuando Search
+  Console, SISTRIX y las citaciones de IA apuntan al mismo problema, dilo
+  explícitamente: eso es lo que hace que el cliente actúe.
+- **Cuantifica el impacto** con los datos de GSC, y marca las estimaciones
+  como estimaciones.
 
 Cuando el informe se use también como argumento comercial, cerrar con un
 **caso de éxito** (una cadena similar que mejoró tras entrar en Paraty, con
@@ -268,7 +534,9 @@ Formato por defecto: HTML autocontenido en `informes/`, nombrado
 la pieza que se entrega al cliente, el formato validado por el usuario es el
 PDF corporativo multipágina del §5.5** (portada oscura, cabecera/pie con nº de
 página, tabla-resumen de hallazgos con píldoras, fichas con caja RECOMENDACIÓN
-y plan por fases). Si el usuario pide PPTX, usa el template de `paraty-tech-brand`
+y plan por fases). Un informe con esta estructura completa se va a 50-70
+páginas, y eso es lo esperable: el detalle vive en los anexos, no en el
+cuerpo. Si el usuario pide PPTX, usa el template de `paraty-tech-brand`
 (`templates/pptx/pptx_template.py`).
 
 ### 5.3 Pre-flight antes de entregar
@@ -345,6 +613,64 @@ Mapeo de prioridad al lenguaje de la Fase 3: Crítico→**Alta**, Importante→
 Nombrado: `AAAA_MM <Hotel> Informe SEO (formato corporativo).pdf` con el HTML
 fuente al lado en `informes/`.
 
+### 5.6 Anexos — el detalle no va en el cuerpo del informe
+
+**Toda lista de URLs va a un anexo, no al informe.** El cuerpo lleva la cifra,
+dos o tres ejemplos y el enlace; el anexo lleva las 111 URLs con su estado.
+Así el informe se lee y el detalle se puede trabajar. La auditoría de Landmar
+de septiembre de 2026 tiene **77 anexos**, y es la razón por la que el
+documento se sostiene en 60 páginas en vez de 300.
+
+Cómo se montan, con el MCP de Google Drive:
+
+1. **Una carpeta por auditoría**: `create_file` con
+   `contentMimeType: application/vnd.google-apps.folder`, nombrada
+   `Anexos SEO - <Cliente> - <Mes Año>`.
+2. **Un Sheet por lista**, dentro de esa carpeta (`parentId`): sube el CSV con
+   `create_file` y `contentMimeType: text/csv` y Drive lo convierte a Sheet.
+   Nombres descriptivos y con prefijo de fuente: `Anexo SEO - URLs huerfanas`,
+   `Anexo GSC - Keywords segunda pagina`, `Anexo Sistrix - Backlinks de spam`,
+   `Anexo GEO - URLs citadas por la IA`.
+3. **Si una lista es muy larga, pártela** en `… parte 1`, `… parte 2`, y
+   enlázalas todas desde el apartado.
+4. **Cada anexo se enlaza desde el apartado que lo usa**, con la fórmula
+   «Podéis encontrar todas las URLs en: …», y la carpeta completa se enlaza
+   además desde la cabecera del informe y desde el índice.
+5. Las columnas son **las que hacen falta para trabajar el anexo**, no un
+   volcado del crawler: URL, el dato del hallazgo, y la decisión o prioridad
+   cuando aplique.
+
+Anexos que salen en casi cualquier auditoría:
+
+- **Del crawl**: URLs del sitemap con su estado y si están enlazadas
+  internamente; URLs huérfanas aisladas; errores 4xx; redirecciones 3xx con el
+  número de enlaces internos que las apuntan; titles y meta descriptions
+  duplicados o fuera de longitud; encabezados; imágenes sin alt y por peso;
+  canonicals; noindex; recuento de palabras; thin content; cabeceras de
+  seguridad ausentes; y el **resumen de problemas del crawl ordenado por
+  gravedad**, que es el que da la vista de pájaro.
+- **De datos estructurados**: cobertura por plantilla, resumen de validación
+  con cada error y aviso y sus URLs afectadas, URLs con errores que bloquean
+  el resultado enriquecido, URLs sin ningún marcado, y el detalle URL a URL.
+- **De hreflang**: con vuelta a noindex, hacia URLs sin código 200, y sin
+  enlace de vuelta.
+- **De Search Console**: evolución mensual; keywords de marca y de no-marca;
+  keywords por clics; keywords de segunda página; un anexo por cluster de
+  oportunidad; países; dispositivos; URLs por idioma; URLs con más tráfico;
+  URLs con impresiones y cero clics.
+- **De SISTRIX**: visibilidad frente a competidores; evolución del índice;
+  distribución de rankings; competidores orgánicos; oportunidades de
+  keywords; tráfico estimado por sección; URLs más enlazadas; anchor text;
+  backlinks de spam; backlinks de calidad.
+- **De GEO**: prompts con respuesta de IA; URLs propias citadas; dominios
+  citados junto al cliente; URLs externas más citadas; marcas que compiten en
+  las respuestas; evolución de prompts.
+
+Si no hay acceso a Drive, los anexos se entregan como CSV en
+`informes/anexos/<cliente>-<mes>/` y el informe enlaza las rutas relativas.
+Lo que no se hace nunca es meter una lista de 300 URLs en el cuerpo del PDF ni
+dejarla sin entregar.
+
 ---
 
 ## 6. Reglas de honestidad del informe
@@ -355,3 +681,7 @@ fuente al lado en `informes/`.
   brand skill.
 - Si un hallazgo depende de una hipótesis, se marca como hipótesis y se
   indica cómo confirmarla.
+- Lo pendiente se recoge **dos veces**: en la tabla de fuentes del apartado 0
+  y en la sección final «Datos pendientes», con el motivo y cómo se consigue.
+- Las advertencias de muestreo se escriben, no se omiten porque afeen la
+  cifra.

@@ -4,6 +4,10 @@
       "type": "http",
       "url": "http://localhost:11435/mcp"
     },
+    "semrush": {
+      "type": "http",
+      "url": "https://mcp.semrush.com/v2/mcp"
+    },
     "gscServer": {
       "command": "/RUTA/ABSOLUTA/A/uvx",
       "args": ["mcp-search-console"],
